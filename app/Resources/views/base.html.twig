@@ -1,13 +1,77 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+        <title>{% block title %}Pruebas!!!{% endblock %}</title>       
+        {% block stylesheets %}
+        
+            {% stylesheets 'bundles/main/css/*' filter='cssrewrite' %}
+                <link rel="stylesheet" href="{{ asset_url }}" />                            
+            {% endstylesheets %}
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />        
     </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<body>        
+<div class="container" id="general">
+<div id="heading" class="navbar">               
+                                
+        <div class="navbar" id="menu">
+            <div class="navbar-inner">
+                <a class="brand" href="#">Welcome!</a>
+                
+            </div>
+         </div>          
+         <div class="clear"></div>
+</div>
+<div class="row-fluid">
+        <div class="span9" id="right">
+            {% block form_header %}{% endblock %}
+            <div id="content"{% block contentExtras %}{% endblock %}>
+                
+                <div class="row">
+                <div class="span12">
+                    {% for notice_level in ['success','error','info', 'warning'] %}
+                        {% set session_var = 'test_' ~ notice_level %}
+                        {% if app.session.flashbag.has(session_var) %}
+                            <div class="alert {{ 'alert-' ~ notice_level }}">
+                                {% for flash in app.session.flashbag.get(session_var) %}
+                                    <p>{{ flash|raw }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                </div>
+                    
+                {% block body %}
+                    {% block content %}{% endblock %}
+                {% endblock %}
+                
+                {% block javascripts %}                                        
+            {% javascripts 
+                '@MainBundle/Resources/public/js/jquery.min.js' 
+                '@MainBundle/Resources/public/js/bootstrap.min.js' 
+                '@MainBundle/Resources/public/js/modernizr-2.6.2-respond-1.1.0.min.js' 
+                '@MainBundle/Resources/public/js/main.js' 
+            %}                        
+                <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}                                                
+        {% endblock %}
+                
+                
+                <div class="buttonbar pull-right">
+                    {% block buttonbar %}{% endblock %}
+                </div>
+            </div>
+
+            {% block form_footer %}{% endblock %}
+        </div>
+</div>
+<div id="" class="row">
+    <div id="footer" class="span12">
+        <span>.....</span><br/><b>...</b>
+    </div>
+</div>
+</div>            
+</body>
 </html>

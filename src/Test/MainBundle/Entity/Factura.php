@@ -3,15 +3,16 @@
 namespace Test\MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Factura
  *
- * @ORM\Table()
+ * @ORM\Table(name="factura")
  * @ORM\Entity
  */
 class Factura
-{
+{     
     /**
      * @var integer
      *
@@ -35,7 +36,19 @@ class Factura
      */
     private $fecha;
 
-
+     /**
+     * @ORM\OneToMany(targetEntity="Test\MainBundle\Entity\Producto", mappedBy="factura", cascade={"persist", "remove"})
+     * @Assert\Valid()
+     */
+    protected $productos;
+ 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->productos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
     /**
      * Get id
      *
@@ -90,5 +103,23 @@ class Factura
     public function getFecha()
     {
         return $this->fecha;
+    }
+    
+     
+    public function setProductos(\Doctrine\Common\Collections\Collection $productos)
+    {
+        $this->productos = $productos;
+        foreach ($productos as $producto) {
+            $producto->setFactura($this);
+        }
+    }
+    /**
+     * Get productos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProductos()
+    {
+        return $this->productos;
     }
 }

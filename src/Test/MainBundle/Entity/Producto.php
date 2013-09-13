@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Producto
  *
- * @ORM\Table()
+ * @ORM\Table(name="producto")
  * @ORM\Entity
  */
 class Producto
@@ -34,7 +34,12 @@ class Producto
      * @ORM\Column(name="cantidad", type="integer")
      */
     private $cantidad;
-
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Test\MainBundle\Entity\Factura", inversedBy="productos")
+     * @ORM\JoinColumn(name="factura_id", referencedColumnName="id")
+     */
+    protected $factura;
 
     /**
      * Get id
@@ -90,5 +95,28 @@ class Producto
     public function getCantidad()
     {
         return $this->cantidad;
+    }
+    
+    /**
+     * Set factura
+     *
+     * @param  \Test\MainBundle\Entity\Factura $factura
+     * @return Address
+     */
+    public function setFactura(\Test\MainBundle\Entity\Factura $factura = null)
+    {
+        $this->factura = $factura;
+
+        return $this;
+    }
+
+    /**
+     * Get factura
+     *
+     * @return \Test\MainBundle\Entity\Factura
+     */
+    public function getFactura()
+    {
+        return $this->factura;
     }
 }
