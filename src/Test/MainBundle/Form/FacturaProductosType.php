@@ -5,6 +5,7 @@ namespace Test\MainBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Test\MainBundle\Entity\Producto;
 
 class FacturaProductosType extends AbstractType
 {
@@ -14,17 +15,18 @@ class FacturaProductosType extends AbstractType
             ->add('descripcion')
             ->add('fecha')
             ->add('productos', 'collection', array(
-                    'type'           => new ProductoType(),
-                    'label'          => 'Productos',
-                    'by_reference'   => false,
-                    'prototype_data' => new Factura(),
-                    'allow_delete'   => true,
-                    'allow_add'      => true,
-                    'attr'           => array(
-                        'class' => 'row productos'
+                'type'           => new ProductoType(),
+                'label'          => 'Productos',
+                'by_reference'   => false,
+                'prototype_data' => new Producto(),
+                //'prototype' => new Producto(),
+                'allow_delete'   => true,
+                'allow_add'      => true,
+                'attr'           => array(
+                    'class' => 'row productos'
                 )
             ))
-        ;
+            ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

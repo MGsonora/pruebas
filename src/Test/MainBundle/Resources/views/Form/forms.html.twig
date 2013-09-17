@@ -1,0 +1,25 @@
+{% extends '::base.html.twig' %}
+{% set section = 'examples' %}
+{% block content %}
+
+<div class="row">
+        <div class="span12">
+            <ul>                
+                <li>Facturas con productos
+                    <ul>
+                        <li><a href="{{ path('forms_create') }}">Crear Factura</a></li>
+                        <li>Editar Factura
+                            <ul>
+                                {% for factura in facturas %}
+                                    <li><a href="#">Editar {{ factura.descripcion|humanize }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+{% endblock %}
+

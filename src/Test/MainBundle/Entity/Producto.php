@@ -39,7 +39,7 @@ class Producto
      * @ORM\ManyToOne(targetEntity="Test\MainBundle\Entity\Factura", inversedBy="productos")
      * @ORM\JoinColumn(name="factura_id", referencedColumnName="id")
      */
-    protected $factura;
+    private $factura;
 
     /**
      * Get id
@@ -101,7 +101,7 @@ class Producto
      * Set factura
      *
      * @param  \Test\MainBundle\Entity\Factura $factura
-     * @return Address
+     * @return Producto
      */
     public function setFactura(\Test\MainBundle\Entity\Factura $factura = null)
     {

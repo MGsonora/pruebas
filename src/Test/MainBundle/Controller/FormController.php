@@ -2,9 +2,6 @@
 
 namespace Test\MainBundle\Controller;
 
-
-
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -33,17 +30,17 @@ class FormController extends Controller
         $facturas = $this->getDoctrine()->getManager()->getRepository("MainBundle:Factura")->findAll();
 
         return array('facturas' => $facturas);
-    }    
-
+    }
+    
     /**
      * @Route("/new", name="forms_create")
-     * @Template("MainBundle:Example\Form:new_one_to_many.html.twig")
+     * @Template()
      */
-    public function oneToManyNewAction(Request $request)
+    public function newAction(Request $request)
     {
-        $user = new User();
+        $factura = new Factura();
 
-        $form = $this->createForm(new UserAddressesType(), $user);
+        $form = $this->createForm(new FacturaProductosType(), $factura);
 
         if ($request->isMethod("POST")) {
             $form->bind($request);
@@ -51,20 +48,20 @@ class FormController extends Controller
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
 
-                $em->persist($user);
-                // $em->flush();
+                $em->persist($factura);
+                $em->flush();                
 
                 $flashBag = $this->get('session')->getFlashBag();
-                $flashBag->add('smtc_success', 'Se ha creado un usuario:');
-                $flashBag->add('smtc_success', sprintf('Username: %s', $user->getUsername()));
-                if (0 !== count($user->getAddresses())) {
-                    $flashBag->add('smtc_success', 'Direcciones:');
-                    foreach ($user->getAddresses() as $address) {
-                        $flashBag->add('smtc_success', sprintf('&nbsp;&nbsp;%s (%s)', $address->getStreet(), $address->getCity()->getName()));
+                $flashBag->add('test_success', 'Se ha creado una Factura:');
+                $flashBag->add('test_success', sprintf('Descripcion: %s', $factura->getDescripcion()));
+                if (0 !== count($factura->getProductos())) {
+                    $flashBag->add('test_success', 'Productos:');
+                    foreach ($factura->getProductos() as $producto) {
+                        $flashBag->add('test_success', sprintf('&nbsp;&nbsp;%s', $producto->getNombre()));
                     }
                 }
 
-                return $this->redirect($this->generateUrl('examples_forms'));
+                return $this->redirect($this->generateUrl('forms'));
             }
         }
 
@@ -73,66 +70,5 @@ class FormController extends Controller
         );
     }
 
-    /**
-     * @Route("/{username}/edit", name="forms_edit")
-     * @ParamConverter("user", class="MainBundle:User")
-     * @Template("MainBundle:Example\Form:edit_one_to_many.html.twig")
-     */
-    public function oneToManyEditAction(User $user, Request $request)
-    {
-        $originalAddresses = array();
-
-        // Create an array of the current Address objects in the database
-        foreach ($user->getAddresses() as $address) {
-            $originalAddresses[] = $address;
-        }
-
-        $form = $this->createForm(new UserAddressesType(), $user);
-
-        if ($request->isMethod("POST")) {
-            $form->bind($request);
-
-            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-
-                // filter $originalAddresses to contain adressess no longer present
-                foreach ($user->getAddresses() as $address) {
-                    foreach ($originalAddresses as $key => $toDel) {
-                        if ($toDel->getId() === $address->getId()) {
-                            unset($originalAddresses[$key]);
-                        }
-                    }
-                }
-
-                // remove the relationship between the address and the Task
-                foreach ($originalAddresses as $address) {
-                    // remove the Address from the User
-                    $user->getAddresses()->removeElement($address);
-
-                    // if you wanted to delete the Address entirely, you can also do that
-                    $em->remove($address);
-                }
-
-                $em->persist($user);
-                // $em->flush();
-
-                $flashBag = $this->get('session')->getFlashBag();
-                $flashBag->add('smtc_success', 'Se ha editado un usuario:');
-                $flashBag->add('smtc_success', sprintf('Username: %s', $user->getUsername()));
-                if (0 !== count($user->getAddresses())) {
-                    $flashBag->add('smtc_success', 'Direcciones:');
-                    foreach ($user->getAddresses() as $address) {
-                        $flashBag->add('smtc_success', sprintf('&nbsp;&nbsp;%s (%s)', $address->getStreet(), $address->getCity()->getName()));
-                    }
-                }
-
-                return $this->redirect($this->generateUrl('examples_forms'));
-            }
-        }
-
-        return array(
-            'form' => $form->createView(),
-            'user' => $user,
-        );
-    }
+    
 }

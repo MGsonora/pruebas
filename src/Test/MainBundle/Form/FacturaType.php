@@ -13,6 +13,17 @@ class FacturaType extends AbstractType
         $builder
             ->add('descripcion')
             ->add('fecha')
+            ->add('prodcutos', 'collection', array(
+                'type'           => new ProductoType(),
+                'label'          => 'Productos',
+                'by_reference'   => false,
+                'prototype_data' => new Producto(),
+                'allow_delete'   => true,
+                'allow_add'      => true,
+                'attr'           => array(
+                    'class' => 'row productos'
+                )
+            ))    
         ;
     }
 
@@ -25,6 +36,7 @@ class FacturaType extends AbstractType
 
     public function getName()
     {
-        return 'test_mainbundle_facturatype';
+        //return 'test_mainbundle_facturatype';
+        return 'factura';
     }
 }

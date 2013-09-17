@@ -40,7 +40,7 @@ class Factura
      * @ORM\OneToMany(targetEntity="Test\MainBundle\Entity\Producto", mappedBy="factura", cascade={"persist", "remove"})
      * @Assert\Valid()
      */
-    protected $productos;
+    private $productos;
  
     /**
      * Constructor
@@ -105,7 +105,11 @@ class Factura
         return $this->fecha;
     }
     
-     
+    /**
+     * set productos
+     *
+     * @return \Test\MainBundle\Entity\Producto
+     */ 
     public function setProductos(\Doctrine\Common\Collections\Collection $productos)
     {
         $this->productos = $productos;
