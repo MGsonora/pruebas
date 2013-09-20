@@ -11,7 +11,7 @@
                         <li>Editar Factura
                             <ul>
                                 {% for factura in facturas %}
-                                    <li><a href="#">Editar {{ factura.descripcion|humanize }}</a></li>
+                                    <li><a href="{{ path('forms_edit', {'id': factura.id}) }}">Editar {{ factura.descripcion|humanize }}</a></li>
                                 {% endfor %}
                             </ul>
                         </li>
