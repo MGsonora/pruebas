@@ -42,7 +42,7 @@
         // Get the div that holds the collection of addresses
         var collectionHolder = $('div.productos');
 
-        // setup an "add a address" link
+        // setup an "add a producto" link
         var $newLinkLi = $('<a href="#" class="btn btn-mini btn-info add_producto_link"><i class="icon-plus icon-white"></i> Añadir un producto</a>');
 
         $(function(){
@@ -74,7 +74,7 @@
 {% block content %}
     <div class="row">
         <div class="span12">
-            <form action="{{ path('forms_create') }}" method="POST" novalidate>
+            <form action="{{ path('forms_create') }}" class="form-horizontal" method="POST" novalidate>
                 {{ form_widget(form) }}
                 <div class="form-actions">
                     <button type="submit" class="btn btn-success">

@@ -5,6 +5,7 @@ namespace Test\MainBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Test\MainBundle\Entity\Producto;
 
 class FacturaType extends AbstractType
 {
@@ -13,13 +14,14 @@ class FacturaType extends AbstractType
         $builder
             ->add('descripcion')
             ->add('fecha')
-            ->add('prodcutos', 'collection', array(
+            ->add('productos', 'collection', array(
                 'type'           => new ProductoType(),
                 'label'          => 'Productos',
                 'by_reference'   => false,
-                'prototype_data' => new Producto(),
+                //'prototype_data' => new Producto(),
+                'prototype' => new Producto(),
                 'allow_delete'   => true,
-                'allow_add'      => true,
+                //'allow_add'      => true,
                 'attr'           => array(
                     'class' => 'row productos'
                 )
