@@ -1,12 +1,10 @@
 {% extends '::base.html.twig' %}
 
-{% set section = 'examples' %}
-
 {% form_theme form _self %}
 
 {% block _factura_productos_productos_entry_row %}
 {% spaceless %}
-    <div class="span3 well producto">
+    <div class="span4 well producto">
         <button type="button" class="close">&times;</button>
         {{ form_label(form) }}
         {{ form_errors(form) }}
@@ -45,7 +43,7 @@
         var collectionHolder = $('div.productos');
 
         // setup an "add a address" link
-        var $newLinkLi = $('<a href="#" class="btn btn-mini btn-info add_address_link"><i class="icon-plus icon-white"></i> Añadir una dirección</a>');
+        var $newLinkLi = $('<a href="#" class="btn btn-mini btn-info add_address_link"><i class="icon-plus icon-white"></i> Añadir un Producto</a>');
 
         $(function(){
 
@@ -76,7 +74,7 @@
 {% block content %}
     <div class="row">
         <div class="span12">
-            <form action="{{ path('examples_forms_one_to_many_edit', {'username': user.username}) }}" method="POST" novalidate>
+            <form action="{{ path('forms_edit', {'id': factura.id}) }}" method="POST" novalidate>
                 {{ form_widget(form) }}
                 <div class="form-actions">
                     <button type="submit" class="btn btn-success">
@@ -87,6 +85,3 @@
         </div>
     </div>
 {% endblock %}
-
-{% set code = code(_self) %}
-

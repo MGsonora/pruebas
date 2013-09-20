@@ -13,7 +13,7 @@ class ProductoType extends AbstractType
         $builder
             ->add('nombre')
             ->add('cantidad')
-            ->add('factura')
+            //->add('factura')
         ;
     }
 

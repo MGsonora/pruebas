@@ -18,10 +18,10 @@ class FacturaType extends AbstractType
                 'type'           => new ProductoType(),
                 'label'          => 'Productos',
                 'by_reference'   => false,
-                //'prototype_data' => new Producto(),
-                'prototype' => new Producto(),
+                'prototype_data' => new Producto(),
+                //'prototype' => new Producto(),
                 'allow_delete'   => true,
-                //'allow_add'      => true,
+                'allow_add'      => true,
                 'attr'           => array(
                     'class' => 'row productos'
                 )

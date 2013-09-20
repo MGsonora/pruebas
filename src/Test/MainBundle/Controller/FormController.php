@@ -117,7 +117,7 @@ class FormController extends Controller
                 $flashBag->add('test_success', 'Se ha editado una Factura:');
                 $flashBag->add('test_success', sprintf('Descripcion: %s', $factura->getDescripcion()));
                 if (0 !== count($factura->getProductos())) {
-                    $flashBag->add('test_success', 'Direcciones:');
+                    $flashBag->add('test_success', 'Productos:');
                     foreach ($factura->getProductos() as $producto) {
                         $flashBag->add('test_success', sprintf('&nbsp;&nbsp;%s', $producto->getNombre()));
                     }
