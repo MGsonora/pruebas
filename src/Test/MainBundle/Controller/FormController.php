@@ -71,11 +71,11 @@ class FormController extends Controller
     }
     
     /**
-     * @Route("/forms/{id}/edit", name="forms_edit")
+     * @Route("/{id}/edit", name="forms_edit")
      * @ParamConverter("factura", class="MainBundle:Factura")
      * @Template()
      */
-    public function editAction(User $factura, Request $request)
+    public function editAction(Factura $factura, Request $request)
     {
         $originalProductos = array();
 
