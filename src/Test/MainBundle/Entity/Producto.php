@@ -28,6 +28,13 @@ class Producto
      * @ORM\Column(name="nombre", type="string", length=255)
      */
     private $nombre;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="precio", type="string", length=255)
+     */
+    private $precio;
 
     /**
      * @var integer
@@ -35,6 +42,13 @@ class Producto
      * @ORM\Column(name="cantidad", type="integer")
      */
     private $cantidad;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="timestamp_inicio", type="datetime")
+     */
+    private $timestampInicio;
     
     /**
      * @ORM\ManyToOne(targetEntity="Test\MainBundle\Entity\Factura", inversedBy="productos")
@@ -76,6 +90,29 @@ class Producto
     }
 
     /**
+     * Set precio
+     *
+     * @param string $precio
+     * @return Producto
+     */
+    public function setPrecio($precio)
+    {
+        $this->precio = $precio;
+    
+        return $this;
+    }
+
+    /**
+     * Get precio
+     *
+     * @return string 
+     */
+    public function getPrecio()
+    {
+        return $this->precio;
+    }
+    
+    /**
      * Set cantidad
      *
      * @param integer $cantidad
@@ -96,6 +133,29 @@ class Producto
     public function getCantidad()
     {
         return $this->cantidad;
+    }
+    
+     /**
+     * Set timestampInicio
+     *
+     * @param \DateTime $timestampInicio
+     * @return Producto
+     */
+    public function setTimestampInicio($timestampInicio)
+    {
+        $this->timestampInicio = $timestampInicio;
+    
+        return $this;
+    }
+
+    /**
+     * Get timestampInicio
+     *
+     * @return \DateTime 
+     */
+    public function getTimestampInicio()
+    {
+        return $this->timestampInicio;
     }
     
     /**
