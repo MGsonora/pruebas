@@ -14,7 +14,9 @@ class ProductoType extends AbstractType
             ->add('nombre')
             ->add('precio')    
             ->add('cantidad')
-            ->add('timestampInicio') 
+            ->add('timestampInicio', 'datetime' ,array(
+                    'date_widget'=> 'single_text','label' =>'Inicio (d/m/a)',
+                    'date_format'=>'d/M/y','time_widget' => 'single_text'))
             //->add('factura')
         ;
     }
